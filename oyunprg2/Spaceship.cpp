@@ -1,4 +1,7 @@
 #include "Spaceship.hpp"
+#include "Onbellek.hpp"
+#include "NesneYonetici.hpp"
+
 
 Spaceship::Spaceship()
 	:Animatable(8,assets_loc+"uzay\\user\\", sf::IntRect(25, 31, 448, 477)){
@@ -20,7 +23,8 @@ Spaceship::Spaceship()
 
 void Spaceship::atesEt() {
 	if (m_cerceveIndex >= m_atesEtmeCD) {
-		Mermi* yeniMermi = new Mermi();
+
+		Mermi* yeniMermi =new Mermi(*Onbellek::getInstance().m_oyuncuMermi);//new Mermi();
 		float xHizalama = (getSpriteBounds().width
 			- yeniMermi->getSpriteBounds().width) / 2 ;
 		yeniMermi->setKonum(getKonum() + sf::Vector2f(xHizalama, -10));

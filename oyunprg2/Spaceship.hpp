@@ -1,6 +1,7 @@
-#pragma 
+#pragma once
 #include "Animatable.hpp"
 #include "Mermi.hpp"
+
 /*
 ÇARE LOOP PATTERNÝNDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE !!!!!!!! mi?
 */

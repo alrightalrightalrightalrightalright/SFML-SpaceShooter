@@ -11,6 +11,11 @@ Cizilebilir::Cizilebilir() {
 	m_haritaDisindaMi = false;
 }
 
+sf::Vector2f Cizilebilir::getCenter() {
+	auto rect = m_sprite.getGlobalBounds();
+	auto pos = m_sprite.getPosition();
+	return sf::Vector2f(pos.x+rect.width/2 , pos.y + rect.height/2);
+}
 sf::Vector2f Cizilebilir::getKonum() {
 	return m_konum;
 }

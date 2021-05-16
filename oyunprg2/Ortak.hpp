@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+
+
 /*UYARI!!!!!!!!!!!!!!!!!!:
 Visual Studio derleyicisi ile çalýþýrken mutlak adres ile çalýþmak zorunda kaldým. Göreceli adresi 
 derleyici üzerinden açamýyor. Bu yüzden geliþtirme aþamasýnda derleyicide mutlak adresi kullandým resimler için.

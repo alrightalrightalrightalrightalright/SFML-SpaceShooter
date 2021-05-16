@@ -1,5 +1,5 @@
 #include "DusmanUcak.hpp"
-
+#include "Onbellek.hpp"
 
 DusmanUcak::DusmanUcak(sf::Vector2f konum,float ucakHizi,float mermiHizi, GEMI_TURU tur,
 	int animSayisi, sf::String animLoc, sf::IntRect animArea,int atesMaxCD)
@@ -9,6 +9,7 @@ DusmanUcak::DusmanUcak(sf::Vector2f konum,float ucakHizi,float mermiHizi, GEMI_T
 	m_mermiHizi = mermiHizi;
 	m_konum = konum;
 	m_hiz = sf::Vector2f(0, m_ucakHizi);
+	m_gemiTuru = tur;
 
 	sf::String secili = "1";
 	olustur(animLoc + secili, animArea);
@@ -30,7 +31,7 @@ DusmanUcak::DusmanUcak(sf::Vector2f konum,float ucakHizi,float mermiHizi, GEMI_T
 
 void DusmanUcak::atesEt() {
 	if (m_cerceveIndex >= m_atesEtmeCD) {
-		Mermi* yeniMermi = new Mermi(true);
+		Mermi* yeniMermi = new Mermi(*Onbellek::getInstance().m_dusmanMermi);
 
 		yeniMermi->setHiz(sf::Vector2f(0, m_mermiHizi));
 		auto aeaf = getSpriteBounds();
@@ -47,7 +48,7 @@ void DusmanUcak::atesEt() {
 
 void DusmanUcak::HaritadanCikti()
 {
-	std::cout << "dusman ucagh bb" << std::endl;
+	//std::cout << "dusman ucagh bb" << std::endl;
 }
 
 void DusmanUcak::hareketEt()

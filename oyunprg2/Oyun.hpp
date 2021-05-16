@@ -10,6 +10,10 @@
 #include "Mermi.hpp"
 #include "DusmanUcak.hpp"
 #include "Efekt.hpp"
+#include "Onbellek.hpp"
+
+
+
 #define PI   3.141592653589793238
 //TODO: framecounter cizilebilir implement
 
@@ -35,14 +39,14 @@ private:
 	sf::Texture			m_kaplama_arkaplan;
 	sf::Sprite			m_sprite_arkaplan;
 
-	DusmanUcak	m_testDusmanUcak;
-	DusmanUcak	m_testDusmanUcak1;
+	DusmanUcak*	m_testDusmanUcak;
+	DusmanUcak*	m_testDusmanUcak1;
 	Pad			m_pad;
 	Top			m_top;
 	Blok		m_blok;
 	Mermi		m_mermi;
 	Duvar		m_ornekDuvar;
-	Spaceship		m_spaceship;
+	Spaceship*	m_spaceship;
 	sf::Vector2i	m_blok_margin;
 	//vektör kullanýmýndan dolayý blok nesnesi oluþturulduktan sonra vektöre eklendiðinde
 	//varsayýlan ctor ile eklendiðinden blok içersindeki texture alaný kayboluyor ve spiretler gözükmüyor

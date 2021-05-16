@@ -1,5 +1,6 @@
 #pragma once
 #include "Animatable.hpp"
+
 //TODO: copy ctor veya operator overload ile rastgelelikver() yap.
 class Efekt:public Animatable
 {

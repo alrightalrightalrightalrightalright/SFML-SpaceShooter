@@ -19,13 +19,13 @@ class DusmanUcak:public Animatable
 public:
 
 	//init kolaylýðý için hazýr ayarlar:
-	static DusmanUcak  YarasaUcak(sf::Vector2f konum = sf::Vector2f(120, 50)) {
-		return DusmanUcak(konum, 0.9f,
+	static DusmanUcak*  YarasaUcak(sf::Vector2f konum = sf::Vector2f(120, 50)) {
+		return new DusmanUcak(konum, 0.9f,
 			2, GEMI_TURU::yarasaUcak, 4, "uzay\\yarasaucak\\",
 			sf::IntRect(65, 59, 376, 393));
 	}	
-	static DusmanUcak  KucukUcak(sf::Vector2f konum) {
-		return DusmanUcak(konum,  0.2f,
+	static DusmanUcak*  KucukUcak(sf::Vector2f konum = sf::Vector2f(120, 50)) {
+		return new DusmanUcak(konum,  0.2f,
 			 1, GEMI_TURU::kucukUcak,  5,  "uzay\\smallship\\",
 			sf::IntRect(71, 29, 481, 520), 350);
 	}
@@ -46,6 +46,6 @@ private:
 	int						m_atesMaxCD;
 	float						m_mermiHizi;//y ekseninde
 	float						m_ucakHizi;//y ekseninde
-
+	GEMI_TURU				m_gemiTuru;
 };
 

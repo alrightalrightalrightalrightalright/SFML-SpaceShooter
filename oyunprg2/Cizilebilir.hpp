@@ -18,6 +18,7 @@ public:
 	void olustur(sf::String dosya, sf::IntRect area, sf::Vector2f scale = sf::Vector2f(0.3f, 0.3f));//0.165
 
 	void setKonum(sf::Vector2f konum);
+	sf::Vector2f getCenter();
 	sf::Vector2f getKonum();
 	
 	void setHiz(sf::Vector2f hiz);

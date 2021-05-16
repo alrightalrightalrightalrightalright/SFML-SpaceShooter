@@ -150,8 +150,11 @@
     <ClCompile Include="DusmanUcak.cpp" />
     <ClCompile Include="duvar.cpp" />
     <ClCompile Include="Efekt.cpp" />
+    <ClCompile Include="EventControl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mermi.cpp" />
+    <ClCompile Include="NesneYonetici.cpp" />
+    <ClCompile Include="Onbellek.cpp" />
     <ClCompile Include="Oyun.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Pencere.cpp" />
@@ -168,8 +171,11 @@
     <ClInclude Include="DusmanUcak.hpp" />
     <ClInclude Include="duvar.hpp" />
     <ClInclude Include="Efekt.hpp" />
+    <ClInclude Include="EventControl.hpp" />
     <ClInclude Include="Mermi.hpp" />
+    <ClInclude Include="NesneYonetici.hpp" />
     <ClInclude Include="Olaylar.hpp" />
+    <ClInclude Include="Onbellek.hpp" />
     <ClInclude Include="Ortak.hpp" />
     <ClInclude Include="Oyun.hpp" />
     <ClInclude Include="Pad.hpp" />
