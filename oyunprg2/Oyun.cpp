@@ -23,7 +23,6 @@ Oyun::Oyun()
 	m_testDusmanUcak1 = DusmanUcak::YarasaUcak();
 	m_testDusmanUcak = DusmanUcak::KucukUcak();
 	
-
 	m_frameCtr = 0;
 
 	m_ornekEfekt = new Efekt(sf::Vector2f( 212, 42));
@@ -65,14 +64,7 @@ void Oyun::girisKontrol()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		m_siradakiYon = YON::ASAGI;*/
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		m_top.setHareketEdiyor(true);
-		m_top.setYonetilebilir(false);
-
-
-		//mermi ateşle
 		m_spaceship->atesEt();
-		m_testDusmanUcak->atesEt();
-		m_testDusmanUcak1->atesEt();
 	}
 }
 
@@ -97,9 +89,11 @@ void Oyun::sahneGuncelle()
 		
 
 		topCarpiyorMu();
+		
 
 		NesneYonetici& yonetici= NesneYonetici::getInstance();
-		yonetici.hareketEttir();
+		yonetici.nesneleriHareketEttir();
+		m_oyunZekasi.Kontrol(m_pencere.pencereGetir());
 
 		//HAREKET ET VE FRAMECTR++ BURDAYDI
 
@@ -113,10 +107,8 @@ void Oyun::sahneCiz()
 	if (m_yeniOyunTiklandimi)
 	{
 		m_pencere.ciz(m_sprite_arkaplan);
-		
 		NesneYonetici& yonetici = NesneYonetici::getInstance();
-		yonetici.ciz(m_pencere.pencereGetir());
-
+  		yonetici.nesneleriCiz(m_pencere.pencereGetir());
 
 	}
 	else

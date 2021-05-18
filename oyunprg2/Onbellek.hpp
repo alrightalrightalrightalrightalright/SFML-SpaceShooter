@@ -1,6 +1,11 @@
 #pragma once
-
-#include "Oyun.hpp"
+#include "Spaceship.hpp"
+#include "Mermi.hpp"
+#include "DusmanUcak.hpp"
+#include "Efekt.hpp"
+#include "Spacebomb.hpp"
+#include "Spacemine.hpp"
+#include "Spacestation.hpp"
 
 /*Oyun nesnelerinin örneklerinin tutulduðu sýnýf. Bu sýnýftan üretilen nesne ile
 * oyun nesnelerinden birer örnek nesne üretilecek ve oyun esnasýnda diðer tüm oyun
@@ -12,7 +17,6 @@
 *
 */
 
-//NEDEN SADECE .CPP DOSYALARINDA ÝNCLUDE EDEBÝLÝYORUM? 
  
 
 class Onbellek
@@ -32,7 +36,9 @@ public:
 	Mermi		*			m_dusmanMermi;
 	DusmanUcak	*			m_dusmanKucukUcak;
 	DusmanUcak	*			m_dusmanYarasaUcak;
-	
+	Spacebomb* m_spaceBomb;
+	Spacemine* m_spaceMine;
+	Spacestation* m_spaceStation;
 	Efekt				*	m_patlamaEfekt;
 };
 

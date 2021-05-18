@@ -2,9 +2,7 @@
 #include "Animatable.hpp"
 #include "Mermi.hpp"
 
-/*
-ÇARE LOOP PATTERNÝNDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE !!!!!!!! mi?
-*/
+//TODO: düþman uçak ile ortak bir parent sýnýf yap
 
 //oyuncunun yönettiði oyuncuya ait uzay gemisi sýnýfý
 class Spaceship:public  Animatable
@@ -16,10 +14,9 @@ public:
 	void hareketEt();
 	void atesEt();
 
-	std::vector<Mermi*>		m_mermiler;
 
 	int				m_cerceveIndex;//iþlenen çerçeve indisi //get, set, incr gibi metotlara gerek var mý?
-
+	int				m_kalanCan;
 private:
 	int				m_atesEtmeCD;//frame cinsinden ateþ etme cooldownu
 

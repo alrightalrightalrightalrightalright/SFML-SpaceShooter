@@ -3,136 +3,144 @@
 #include <iostream>
 
 
-template <typename C, typename T>
-void vektordenNesneSil(C data, T& source)
-{
-	source.erase(std::remove(source.begin(),
-		source.end(), data), source.end());
-	delete data;
-}
 
 
+//mermilerin çarpma olaylarý ve hareket ettirilmesi
+void NesneYonetici::_mermiCarpmaKontrol() {
+	for (auto siradakiMermi = m_mermiler.rbegin(); siradakiMermi != m_mermiler.rend(); ++siradakiMermi) {
+		if ((*siradakiMermi)->haritaDisindaMi()) {
+			vektordenNesneSil((*siradakiMermi), m_mermiler);
+			continue;
+		}
+		else
+			(*siradakiMermi)->hareketEt();
 
-//tüm nesneleri hareket ettir.
-//HER FRAMEDE ÇAÐRILAMSI GEREKÝR
-void NesneYonetici::hareketEttir() {
+		//oyuncu mermileri kontrol
+		if ((*siradakiMermi)->m_kaynakGemi == GEMI_TURU::oyuncuUcak) {
+			for (auto dusmangemisi : m_dusmanlar)
+			{
+				if ((*siradakiMermi)->getSpriteBounds().intersects(dusmangemisi->getSpriteBounds())) {
+					Efekt* patlama = new Efekt(*Onbellek::getInstance().m_patlamaEfekt);
+					patlama->_rastgelelikVer();
+					m_efektler.push_back(patlama);
 
-	
-	for (auto dusmangemisi : m_dusmanlar)
-	{
-		dusmangemisi->hareketEt();
-		dusmangemisi->m_cerceveIndex++;
+					patlama->setKonum((*siradakiMermi)->getCenter() + sf::Vector2f(0, -15));
 
-		for (auto siradakiMermi : dusmangemisi->m_mermiler)
-		{
-			siradakiMermi->hareketEt();
+					vektordenNesneSil((*siradakiMermi), m_mermiler);
+					vektordenNesneSil(dusmangemisi, m_dusmanlar);
+				}
+			}
 
-			if (siradakiMermi->getSpriteBounds().intersects(m_oyuncu->getSpriteBounds())) {
+		}
+
+		//düþman mermisi kontrol
+		else {
+			if ((*siradakiMermi)->getSpriteBounds().intersects(m_oyuncu->getSpriteBounds())) {
 				std::cout << "MAL YANDIN" << std::endl;
 				Efekt* patlama = new Efekt(*Onbellek::getInstance().m_patlamaEfekt);
 				patlama->_rastgelelikVer();//
 				m_efektler.push_back(patlama);
 
 				//genellikle yukardan çarpacaðý farzedilerek 10 birim aþaðýda patlatýlýyor
-				patlama->setKonum(siradakiMermi->getCenter()+sf::Vector2f(0,10));
+				patlama->setKonum((*siradakiMermi)->getCenter() + sf::Vector2f(0, 10));
 
-				vektordenNesneSil(siradakiMermi, dusmangemisi->m_mermiler);
+				vektordenNesneSil((*siradakiMermi), m_mermiler);
 			}
-			/*
-			auto konum = m_top.getKonum();
-			auto boyut = m_pencere.pencereGetir().getSize();
-
-			float angle = atan2(konum.y, konum.x);
-
-
-			//pencereye(kenarlara) çarpma kontrol:
-			/*Özetle pencere kenarlarý + duvarlarýn boyutu kadar yakýnlýða çarpma kontorl ediliyor ve ona
-			göre top sekiyor. yani her bir duvara tek tek çarptý mý kontrölü yapýlmýyor performans gereði.
-			if (konum.x + m_ornekDuvar.getBoyut().x <= m_top.m_sprite.getGlobalBounds().width) { carpis(); }//sol
-			else if (konum.y + m_ornekDuvar.getBoyut().y <= m_top.m_sprite.getGlobalBounds().height) { carpis(); }//üst
-			else if (konum.x + 2*m_ornekDuvar.getBoyut().x >= boyut.x) {
-				carpis(); }//sað
-			else if (konum.y +2*m_ornekDuvar.getBoyut().y >= boyut.y) { carpis(); }//alt
-
-			//pade çarpma kontorl
-			if (m_top.m_sprite.getGlobalBounds().intersects(m_pad.getSpriteBounds()))
-				carpis();
-
-				*/
-
-
-
-
-
-
-
-
-
 		}
-	}
 
+	}
+}
+
+//tüm nesneleri hareket ettir.
+//HER FRAMEDE ÇAÐRILAMSI GEREKÝR
+void NesneYonetici::nesneleriHareketEttir() {
+	//OYUNCU
 	m_oyuncu->hareketEt();
 	m_oyuncu->m_cerceveIndex++;
 
-	for (auto siradaki : m_oyuncu->m_mermiler)
+
+	/*range based döngülerle(itr:collection) yapýlan hareketler sonucu haritadan taþan
+	varlýk bulunduðu iterasyonda siliniyor. bunun sonucu içinde bulunulan döngüde
+	silinen her eleman için son eleman tekrar döngüye giriyor. vektörlerin eksik 
+	yönü olan bu sorunu çözmek için tersten döngü kullanýlýyor.(Iterator invalidation)*/
+
+	//DÜÞMANLAR
+	for (auto siradaki = m_dusmanlar.rbegin(); siradaki != m_dusmanlar.rend(); ++siradaki)
 	{
-		siradaki->hareketEt();
+		(*siradaki)->hareketEt();
+		(*siradaki)->m_cerceveIndex++;
 	}
 
 
+	//BOMBALAR
+	for (auto siradaki = m_bombs.rbegin(); siradaki != m_bombs.rend(); ++siradaki)
+	{
+		(*siradaki)->hareketEt();
+	}
+
+	//MAYINLAR
+	for (auto siradaki = m_mines.rbegin(); siradaki != m_mines.rend(); ++siradaki)
+	{
+		(*siradaki)->hareketEt();
+	}
+
+	//ÝSTASYONLAR
+	for (auto siradaki = m_stations.rbegin(); siradaki != m_stations.rend(); ++siradaki)
+	{
+		(*siradaki)->hareketEt();
+	}
+
+	/*for (auto siradakiMermi = m_mermiler.rbegin(); siradakiMermi != m_mermiler.rend(); ++siradakiMermi) {
+		(*siradakiMermi)->hareketEt();
+	}*/
+	//MERMÝLER ve mermi çarpýþmasý, performans için ek döngü gerek yok.
+	_mermiCarpmaKontrol();
 }
 
-
- 
-void NesneYonetici::ciz(sf::RenderWindow& pencere)
+void NesneYonetici::nesneleriCiz(sf::RenderWindow& pencere)
 {
+	//OYUNCU
+	m_oyuncu->ciz(pencere);
+
 	//DÜÞMANLAR
 	for (auto dusmangemisi : m_dusmanlar)
 	{
 		dusmangemisi->ciz(pencere);
-
-		for (auto siradakiMermi : dusmangemisi->m_mermiler)
-		{
-			//siradakiMermi->ciz(pencere);
-			//MERMÝ TAÞTIYSA SÝLLLLLLLLLL
-			if (!siradakiMermi->haritaDisindaMi())
-				siradakiMermi->ciz(pencere);
-			else {
-				std::cout << "DUSMNAmermi silindi, mrm count:" << dusmangemisi->m_mermiler.size() << std::endl;
-				dusmangemisi->m_mermiler.erase(std::remove(dusmangemisi->m_mermiler.begin(),
-					dusmangemisi->m_mermiler.end(), siradakiMermi), dusmangemisi->m_mermiler.end());
-				delete siradakiMermi;
-			}
-		}
 	}
 
-	//OYUNCU
-	m_oyuncu->ciz(pencere);
-	for (auto siradaki : m_oyuncu->m_mermiler)
+	//MERMÝLER
+	for (auto siradaki : m_mermiler)
 	{
-		//MERMÝ TAÞTIYSA SÝLLLLLLLLLL
-		if (!siradaki->haritaDisindaMi())
-			siradaki->ciz(pencere);
-		else {
-			std::cout << "mermi silindi, mrm count:" << m_oyuncu->m_mermiler.size() << std::endl;
-			m_oyuncu->m_mermiler.erase(std::remove(m_oyuncu->m_mermiler.begin(),
-				m_oyuncu->m_mermiler.end(), siradaki), m_oyuncu->m_mermiler.end());
-			delete siradaki;
-		}
+		siradaki->ciz(pencere);
+	}
+
+	//BOMBALAR
+	for (auto siradaki : m_bombs)
+	{
+		siradaki->ciz(pencere);
+	}
+
+	//MAYINLAR
+	for (auto siradaki : m_mines)
+	{
+		siradaki->ciz(pencere);
+	}
+
+	//ÝSTASYONLAR
+	for (auto siradaki : m_stations)
+	{
+		siradaki->ciz(pencere);
 	}
 
 	//EFEKTLER
-	for (auto siradaki: m_efektler)
+	for (auto siradaki : m_efektler)
 	{
 		if (!siradaki->m_efektBitti)
 			siradaki->ciz(pencere);
 		else {
-			m_efektler.erase(std::remove(m_efektler.begin(),
-				m_efektler.end(), siradaki), m_efektler.end());
-			delete siradaki;
+			vektordenNesneSil(siradaki, m_efektler);
 		}
 	}
 
 	return;
-
 }

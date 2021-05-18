@@ -1,7 +1,7 @@
 #include "Efekt.hpp"
 
 Efekt::Efekt(sf::Vector2f konum)
-	:Animatable(16,assets_loc+ "uzay\\Effects\\1_",sf::IntRect(),0,0.15)
+	:Animatable(16,assets_loc+ "uzay\\Effects\\1_",sf::IntRect(),0,0.5)
 {
 	olustur( "uzay\\Effects\\1_0", sf::IntRect(), sf::Vector2f(1, 1));
 	m_konum = konum;
@@ -23,7 +23,7 @@ void Efekt ::_rastgelelikVer() {
 	float scaleX = (float)(25 + rand() % 80) / 100;
 
 	//tam ortadan rotate için
-	m_sprite.setScale(sf::Vector2f(scaleX, scaleY));
+	m_sprite.setScale(sf::Vector2f(scaleY, scaleX));
 	m_sprite.rotate(rand() % 360);
 
 	//eski origini kullanmak zor olur çünkü rotate ile çevrilmiþ bir spriteý köþesinden kullanmak gereksiz

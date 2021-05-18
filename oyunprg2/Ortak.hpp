@@ -18,3 +18,13 @@ Saygýlarýmla.
 
 //static sf::String assets_loc = "resimler\\";
 static sf::String assets_loc = "C:\\Users\\murat\\source\\repos\\dependencies\\bin\\resimler\\";
+
+
+template <typename C, typename T>
+void vektordenNesneSil(C data, T& source)
+{
+	source.erase(std::remove(source.begin(),
+		source.end(), data), source.end());
+	delete data;//HATAAAAAAAAAAAAAAAAAAAA NEDENSE HATA YÝYORUM BURDA
+	std::cout << data << std::endl;
+}

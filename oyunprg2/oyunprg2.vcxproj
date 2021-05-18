@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>enum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,32 +145,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animatable.cpp" />
-    <ClCompile Include="Blok.cpp" />
     <ClCompile Include="Buton.cpp" />
     <ClCompile Include="Cizilebilir.cpp" />
     <ClCompile Include="DusmanUcak.cpp" />
-    <ClCompile Include="duvar.cpp" />
     <ClCompile Include="Efekt.cpp" />
     <ClCompile Include="EventControl.cpp" />
+    <ClCompile Include="GemiTuru.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mermi.cpp" />
     <ClCompile Include="NesneYonetici.cpp" />
     <ClCompile Include="Onbellek.cpp" />
     <ClCompile Include="Oyun.cpp" />
-    <ClCompile Include="Pad.cpp" />
+    <ClCompile Include="OyunZekasi.cpp" />
     <ClCompile Include="Pencere.cpp" />
     <ClCompile Include="PencereAraci.cpp" />
+    <ClCompile Include="Spacebomb.cpp" />
+    <ClCompile Include="Spacemine.cpp" />
     <ClCompile Include="Spaceship.cpp" />
-    <ClCompile Include="Top.cpp" />
-    <ClCompile Include="Yon.cpp" />
+    <ClCompile Include="Spacestation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animatable.hpp" />
-    <ClInclude Include="Blok.hpp" />
     <ClInclude Include="Buton.hpp" />
     <ClInclude Include="Cizilebilir.hpp" />
     <ClInclude Include="DusmanUcak.hpp" />
-    <ClInclude Include="duvar.hpp" />
     <ClInclude Include="Efekt.hpp" />
     <ClInclude Include="EventControl.hpp" />
     <ClInclude Include="Mermi.hpp" />
@@ -178,11 +177,13 @@
     <ClInclude Include="Onbellek.hpp" />
     <ClInclude Include="Ortak.hpp" />
     <ClInclude Include="Oyun.hpp" />
-    <ClInclude Include="Pad.hpp" />
+    <ClInclude Include="OyunZekasi.hpp" />
     <ClInclude Include="Pencere.hpp" />
     <ClInclude Include="PencereAraci.hpp" />
+    <ClInclude Include="Spacebomb.hpp" />
+    <ClInclude Include="Spacemine.hpp" />
     <ClInclude Include="Spaceship.hpp" />
-    <ClInclude Include="Top.hpp" />
+    <ClInclude Include="Spacestation.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

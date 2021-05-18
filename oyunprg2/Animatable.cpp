@@ -29,8 +29,9 @@ void Animatable::Onbellekle()
 
 void Animatable::Animate()
 {
-	if (currSpriteIndex == maxSpriteIndex - 1)
-		currSpriteIndex = 0;
+	//TODO: yavaþlatýlmýþta tüm animasyonlarý gez
+	if (currSpriteIndex == maxSpriteIndex)
+		currSpriteIndex = 1;
 	else {
 		//animasyon hýzýna göre animate
 		
@@ -50,8 +51,8 @@ void Animatable::Animate()
 		
 
 	}
-
-	m_kaplama.loadFromImage(resimler.at(currSpriteIndex), m_textureArea);//rokete göre max height
+	int index = currSpriteIndex == 0 ? 0 : currSpriteIndex - 1;//1,2,3,4 olarak 4 anim varsa 0,1,2,3 oalrak eriþcek
+	m_kaplama.loadFromImage(resimler.at(index), m_textureArea);//rokete göre max height
 	//m_kaplama.update(resimler.at(currSpriteIndex));
 	//m_kaplama.update(resimler[currSpriteIndex]->getPixelsPtr());//??????????????????????????
 	m_sprite.setTexture(m_kaplama);

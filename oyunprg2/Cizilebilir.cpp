@@ -33,7 +33,7 @@ void Cizilebilir::setHiz(sf::Vector2f hiz) {
 }
 
 
-
+//TODO: virtual yap ya da inpup sýnýflarý kur
 //hareket etme implement
 sf::Vector2f Cizilebilir::_hareketEt() {
 	sf::Vector2f artis;
@@ -83,9 +83,7 @@ sf::FloatRect Cizilebilir::getSpriteBounds() {
 }
 void Cizilebilir::HaritadanCikti()
 {
-	std::cout << "DEFAULT MAPTEN CIKMA FUNC" << std::endl;
-
-
+	std::cout << "DEFAULT MAPTEN CIKMA FUNC sheeeeeeeeeeeeeeeesh" << std::endl;
 }
 void Cizilebilir::tasmaKontrol() {
 	auto spriteKonum = m_konum;

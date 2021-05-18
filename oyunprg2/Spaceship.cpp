@@ -7,6 +7,7 @@ Spaceship::Spaceship()
 	:Animatable(8,assets_loc+"uzay\\user\\", sf::IntRect(25, 31, 448, 477)){
 	m_konum = sf::Vector2f(320, 250);
 	m_hiz = sf::Vector2f(9, 0);
+	m_kalanCan = 1;
 
 	sf::String secili = "1";
 	olustur("uzay\\user\\" + secili, sf::IntRect(25, 31, 448, 477));
@@ -14,7 +15,7 @@ Spaceship::Spaceship()
 	float scaleY = 1/(m_sprite.getGlobalBounds().width / 50);//hedef yükseklik
 	float scaleX = 1/(m_sprite.getGlobalBounds().height / 50);//hedef yükseklik
 
-	m_sprite.scale(sf::Vector2f(scaleX, scaleY));
+	m_sprite.scale(sf::Vector2f(scaleY, scaleX));
 
 	m_cerceveIndex = 0;
 	m_atesEtmeCD = 5;
@@ -28,7 +29,9 @@ void Spaceship::atesEt() {
 		float xHizalama = (getSpriteBounds().width
 			- yeniMermi->getSpriteBounds().width) / 2 ;
 		yeniMermi->setKonum(getKonum() + sf::Vector2f(xHizalama, -10));
-		m_mermiler.push_back(yeniMermi);
+
+		static NesneYonetici& oyunmotoru = NesneYonetici::getInstance();
+		oyunmotoru.m_mermiler.push_back(yeniMermi);
 
 		m_cerceveIndex = 0;
 	}

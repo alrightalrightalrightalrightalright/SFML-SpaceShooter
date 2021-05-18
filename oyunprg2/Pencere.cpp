@@ -3,7 +3,7 @@
 #include "PencereAraci.hpp"
 Pencere::Pencere()
 {
-	ayarla(400, 700, "SFML");
+	ayarla(400, 700, "Uzay Oyunu");
 }
 
 void Pencere::ayarla(unsigned int genislik, 
