@@ -24,7 +24,7 @@ Spacemine::Spacemine(sf::Vector2f konum)
 
 void Spacemine::HaritadanCikti()
 {
-	vektordenNesneSil(this, NesneYonetici::getInstance().m_mines);
+	//vektordenNesneSil(this, NesneYonetici::getInstance().m_mines);
 }
 
 void Spacemine::hareketEt()

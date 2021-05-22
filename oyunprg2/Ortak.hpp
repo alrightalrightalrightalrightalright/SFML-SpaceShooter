@@ -26,5 +26,4 @@ void vektordenNesneSil(C data, T& source)
 	source.erase(std::remove(source.begin(),
 		source.end(), data), source.end());
 	delete data;//HATAAAAAAAAAAAAAAAAAAAA NEDENSE HATA YÝYORUM BURDA
-	std::cout << data << std::endl;
 }

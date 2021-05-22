@@ -55,9 +55,7 @@ void DusmanUcak::atesEt() {
 
 void DusmanUcak::HaritadanCikti()
 {
-	if (m_konum.y >= 100) {//100 rastgele, spawnlanýrken yok olmamasý için var.
-		vektordenNesneSil(this, NesneYonetici::getInstance().m_dusmanlar);
-	}
+	
 }
 
 void DusmanUcak::hareketEt()
@@ -65,4 +63,5 @@ void DusmanUcak::hareketEt()
 	if (m_konum.y > 0)
 		atesEt();
 	m_konum += m_hiz;
+	m_cerceveIndex++;
 }

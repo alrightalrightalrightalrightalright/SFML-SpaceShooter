@@ -11,8 +11,13 @@ tek yön olduðundan nesneler kendi hareket ediyor.
 class OyunZekasi
 {
 private:
-	int m_spawnCD;//frame cinsinden
+	int m_spawnCD;//frame cinsinden, her bir varlýðýn spawn cdsi
+	int m_maxIstasyonSayisi;
 	int m_maxDusmanSayisi;
+	int m_maxMayinSayisi;
+	int m_maxBombaSayisi;
+	//burdaki bir deðer otomatik null oluyor? nasýl neden????
+
 	int m_cerceveSayac;
 	void DusmanKoy(sf::Vector2f konum);
 

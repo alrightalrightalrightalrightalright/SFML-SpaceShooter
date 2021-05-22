@@ -13,12 +13,13 @@ public:
 	void HaritadanCikti() override;
 	void hareketEt();
 	void atesEt();
-
+	void hasarAl();
+	int getKalanCan();
 
 	int				m_cerceveIndex;//iþlenen çerçeve indisi //get, set, incr gibi metotlara gerek var mý?
-	int				m_kalanCan;
 private:
 	int				m_atesEtmeCD;//frame cinsinden ateþ etme cooldownu
+	int				m_kalanCan;
 
 };
 

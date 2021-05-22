@@ -5,32 +5,27 @@
 Oyun::Oyun()
 {
 
-
-	//TEMEL DEĞİŞKENLER
+	godMode = false;
 	m_kapalimi = false;
 	m_yeniOyunTiklandimi = false;	
-	Onbellek asf= Onbellek::getInstance();
 	m_cerceveSuresi = 1.0f / 60.0f;
+
 	menuAyarla();
-	auto boyut = m_pencere.pencereGetir().getSize();
 
 	arkaPlanOlustur();
+
 	m_pencere.pencereGetir();
 	sf::Vector2u pencereBoyut = m_pencere.pencereGetir().getSize();
 
-
-	m_spaceship = new Spaceship();
-	m_testDusmanUcak1 = DusmanUcak::YarasaUcak();
-	m_testDusmanUcak = DusmanUcak::KucukUcak();
-	
 	m_frameCtr = 0;
 
-	m_ornekEfekt = new Efekt(sf::Vector2f( 212, 42));
-	
+	m_spaceship = new Spaceship();
+	m_spaceship->setKonum(sf::Vector2f(pencereBoyut.x/2-25,9* pencereBoyut.y/10  ));
 	static NesneYonetici &oyunmotoru = NesneYonetici::getInstance();
 	oyunmotoru.m_oyuncu= m_spaceship;
-	oyunmotoru.m_dusmanlar.push_back(m_testDusmanUcak);
-	oyunmotoru.m_dusmanlar.push_back(m_testDusmanUcak1);
+
+	//nesneleri başlatmak için. başka bir işlevi yok.
+	Onbellek onbellek= Onbellek::getInstance();
 }
 
 Oyun::~Oyun()
@@ -42,7 +37,6 @@ Oyun::~Oyun()
 void Oyun::btnYeniOyunTikla()
 {
 	m_yeniOyunTiklandimi = true;
-	Onbellek asf = Onbellek::getInstance();
 
 }
 
@@ -54,18 +48,7 @@ void Oyun::btnCikisTikla()
 void Oyun::girisKontrol()
 {
 	m_pencere.olayKontrol();
-	/*
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_siradakiYon = YON::SAG;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_siradakiYon = YON::SOL;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		m_siradakiYon = YON::YUKARI;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		m_siradakiYon = YON::ASAGI;*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		m_spaceship->atesEt();
-	}
+
 }
 
 void Oyun::sahneGuncelle()
@@ -78,24 +61,13 @@ void Oyun::sahneGuncelle()
 		if (!m_yeniOyunTiklandimi)return;
 
 		if (m_frameCtr >= 30) {
-			Efekt* patlama = new Efekt(*Onbellek::getInstance().m_patlamaEfekt);
-			//Efekt* patlama = new Efekt(*m_ornekEfekt);
-			patlama->_rastgelelikVer();
-			//Efekt fe =  Efekt(sf::Vector2f(3,3));
-			m_efektler.push_back(patlama);
-			m_frameCtr = 0;
-			delete patlama;
+			//sürekli olay
 		}
-		
-
-		topCarpiyorMu();
-		
-
+			
 		NesneYonetici& yonetici= NesneYonetici::getInstance();
+
 		yonetici.nesneleriHareketEttir();
 		m_oyunZekasi.Kontrol(m_pencere.pencereGetir());
-
-		//HAREKET ET VE FRAMECTR++ BURDAYDI
 
 		m_frameCtr++;
 	}
@@ -104,17 +76,23 @@ void Oyun::sahneGuncelle()
 void Oyun::sahneCiz()
 {
 	m_pencere.cizimeBasla();
-	if (m_yeniOyunTiklandimi)
-	{
-		m_pencere.ciz(m_sprite_arkaplan);
-		NesneYonetici& yonetici = NesneYonetici::getInstance();
-  		yonetici.nesneleriCiz(m_pencere.pencereGetir());
 
-	}
-	else
+	if (!m_yeniOyunTiklandimi)
 	{
 		menuCiz();
+		m_pencere.cizimiBitir();
+		return;
 	}
+ 
+	m_pencere.ciz(m_sprite_arkaplan);
+	NesneYonetici& yonetici = NesneYonetici::getInstance();
+	yonetici.nesneleriCiz(m_pencere.pencereGetir());
+
+	if (m_spaceship->getKalanCan() <= 0) {
+		if (!godMode)
+			exit(3);
+	}
+
 	m_pencere.cizimiBitir();
 }
 
@@ -139,52 +117,6 @@ void Oyun::arkaPlanOlustur() {
 	m_sprite_arkaplan.setTexture(m_kaplama_arkaplan);
 	m_sprite_arkaplan.setPosition(sf::Vector2f(0, 0));
 }
-
-//x2 = cosbetax1−sinbetay1
-//y2 = sinbetax1 + cosbetay
-//https://matthew-brett.github.io/teaching/rotation_2d.html
-sf::Vector2f rotateBy(float beta, sf::Vector2f v)
-{
-	sf::Vector2f yeni = sf::Vector2f();
-
-	yeni.x = cos(beta) * v.x - sin(beta) * v.y;
-	yeni.y = sin(beta) * v.x + cos(beta) * v.y;
-
-	return yeni;
-}
-
-void Oyun::carpis() {
-}
-
-void Oyun::topCarpiyorMu() {
-	//harita dışına taşma kontrol:
-
-	/*
-	auto konum = m_top.getKonum();
-	auto boyut = m_pencere.pencereGetir().getSize();
-
-	float angle = atan2(konum.y, konum.x);
-
-
-	//pencereye(kenarlara) çarpma kontrol:
-	/*Özetle pencere kenarları + duvarların boyutu kadar yakınlığa çarpma kontorl ediliyor ve ona
-	göre top sekiyor. yani her bir duvara tek tek çarptı mı kontrölü yapılmıyor performans gereği.
-	if (konum.x + m_ornekDuvar.getBoyut().x <= m_top.m_sprite.getGlobalBounds().width) { carpis(); }//sol
-	else if (konum.y + m_ornekDuvar.getBoyut().y <= m_top.m_sprite.getGlobalBounds().height) { carpis(); }//üst
-	else if (konum.x + 2*m_ornekDuvar.getBoyut().x >= boyut.x) { 
-		carpis(); }//sağ
-	else if (konum.y +2*m_ornekDuvar.getBoyut().y >= boyut.y) { carpis(); }//alt
-
-	//pade çarpma kontorl
-	if (m_top.m_sprite.getGlobalBounds().intersects(m_pad.getSpriteBounds()))
-		carpis();
-	*/
-
-
-}
-
-
-
 
 
 void Oyun::menuAyarla()
@@ -233,6 +165,7 @@ void Oyun::calis() {
 		girisKontrol();
 		sahneGuncelle();
 		sahneCiz();
+		
 		saatiYenidenBaslat();
 	}
 }

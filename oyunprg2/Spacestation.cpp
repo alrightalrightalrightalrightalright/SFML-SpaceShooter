@@ -21,7 +21,7 @@ Spacestation::Spacestation(sf::Vector2f konum)
 }
 void Spacestation::HaritadanCikti()
 {
-	vektordenNesneSil(this, NesneYonetici::getInstance().m_stations);
+	//vektordenNesneSil(this, NesneYonetici::getInstance().m_stations);
 }
 
 void Spacestation::hareketEt()

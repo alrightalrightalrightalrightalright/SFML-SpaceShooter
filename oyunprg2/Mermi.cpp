@@ -22,9 +22,10 @@ Mermi::Mermi(GEMI_TURU kaynak)
 
 void Mermi::HaritadanCikti()
 {
-	std::cout << "mermi: " << this << "silindi." << std::endl;
-	NesneYonetici& allah = NesneYonetici::getInstance();
-  	vektordenNesneSil(this,allah.m_mermiler);
+	/*std::cout << "mermi: " << this << "silindi." << std::endl;
+	NesneYonetici& yonetici = NesneYonetici::getInstance();
+  	vektordenNesneSil(this, yonetici.m_mermiler);*/
+
 }
 
 void Mermi::hareketEt() {

@@ -18,8 +18,7 @@ Spacebomb::Spacebomb(sf::Vector2f konum)
 
 void Spacebomb::HaritadanCikti()
 {
-	vektordenNesneSil(this, NesneYonetici::getInstance().m_bombs);
-	std::cout << "BOMBA SÝLÝNDÝÝÝÝÝEEEEEE" << std::endl;
+	//vektordenNesneSil(this, NesneYonetici::getInstance().m_bombs);
 }
 
 void Spacebomb::hareketEt()
